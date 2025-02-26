@@ -7,7 +7,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (status === "unauthenticated") {
-      redirect("/sign-in")
+      redirect("/error")
     }
   }, [status]);
 
