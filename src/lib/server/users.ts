@@ -1,14 +1,6 @@
 import axios from "axios";
-import { getServerSession } from "next-auth";
-import { authConfig } from "../auth";
-import { NextResponse } from "next/server";
 
 export const fetchAllUsers = async (pageNumber: number, pageSize: number) => {
-  const session = await getServerSession(authConfig);
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   let page = 1;
 
   const url = `https://reqres.in/api/users?page=${page}`;
