@@ -1,9 +1,16 @@
 import axios from "axios";
+import { getServerSession } from "next-auth";
+import { authConfig } from "../auth";
+import { NextResponse } from "next/server";
 
 export const fetchAllUsers = async (pageNumber: number, pageSize: number) => {
-    console.log("page number => ", pageNumber)
+  const session = await getServerSession(authConfig);
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   let page = 1;
-  
+
   const url = `https://reqres.in/api/users?page=${page}`;
   const response = await axios.get<ApiInterface>(url);
   const responseTotalPage = response.data.total_pages;
@@ -15,14 +22,19 @@ export const fetchAllUsers = async (pageNumber: number, pageSize: number) => {
     responseUserList.push(...resp.data.data);
   }
 
-  console.log("total of users => ", responseUserList.length)
+  console.log("total of users => ", responseUserList.length);
 
-  const filteredUser = responseUserList.filter((user) => user.first_name[0] === "G" || user.last_name[0] === "W")
+  const filteredUser = responseUserList.filter(
+    (user) => user.first_name[0] === "G" || user.last_name[0] === "W"
+  );
   const totalPages = Math.ceil(filteredUser.length / pageSize);
-  const slicedUser = filteredUser.slice((pageNumber - 1) * pageSize, (pageNumber * pageSize))
-  console.log("filtered => ", filteredUser)
+  const slicedUser = filteredUser.slice(
+    (pageNumber - 1) * pageSize,
+    pageNumber * pageSize
+  );
+  console.log("filtered => ", filteredUser);
 
-  console.log(slicedUser)
+  console.log(slicedUser);
 
   return {
     users: slicedUser,
@@ -32,21 +44,21 @@ export const fetchAllUsers = async (pageNumber: number, pageSize: number) => {
 };
 
 type UserInterface = {
-    id: number;
-    email: string;
-    first_name: string;
-    last_name: string;
-    avatar: string;
-}
+  id: number;
+  email: string;
+  first_name: string;
+  last_name: string;
+  avatar: string;
+};
 
 type ApiInterface = {
-    data: UserInterface[];
-    page: number;
-    per_page: number;
-    total: number;
-    total_pages: number;
-    support: {
-        url: string;
-        text: string;
-    }
-}
+  data: UserInterface[];
+  page: number;
+  per_page: number;
+  total: number;
+  total_pages: number;
+  support: {
+    url: string;
+    text: string;
+  };
+};

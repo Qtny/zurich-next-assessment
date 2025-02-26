@@ -10,7 +10,15 @@ export const authConfig: NextAuthOptions = {
   ],
   secret: process.env.JWT_SECRET_KEY,
   pages: {
-    signIn: "/sign-in"
+    signIn: "/sign-in",
+  },
+  callbacks: {
+    async session({ session, token }) {
+      if (session.user && token.sub) {
+        (session.user as { id?: string }).id = token.sub;
+      }
+      return session;
+    },
   },
   session: {
     strategy: "jwt",
