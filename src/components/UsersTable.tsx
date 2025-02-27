@@ -5,9 +5,9 @@ import { useState } from "react";
 type UserInterface = {
     id: number;
     email: string;
-    first_name: string;
-    last_name: string;
-    avatar: string;
+    firstName: string;
+    lastName: string;
+    photo: string;
 }
 
 const UsersTable = ({ users }: { users: UserInterface[] }) => {
@@ -53,9 +53,9 @@ const UsersTable = ({ users }: { users: UserInterface[] }) => {
                 {users.map((user, i) => {
                     return (
                         <tr key={`user-${i}`} className="h-20 odd:bg-slate-100 last:rounded-b-xl">
-                            <td className="flex justify-center items-center h-20"><Image className="rounded-full" src={user.avatar} alt="" height={40} width={40} /></td>
-                            <td className="text-center">{user.first_name}</td>
-                            <td className="text-center">{user.last_name}</td>
+                            <td className="flex justify-center items-center h-20"><Image className="rounded-full" src={user.photo} alt="" height={40} width={40} /></td>
+                            <td className="text-center">{user.firstName}</td>
+                            <td className="text-center">{user.lastName}</td>
                             <td className="text-center"><EmailRow email={user.email} /></td>
                         </tr>
 

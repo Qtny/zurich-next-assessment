@@ -5,13 +5,13 @@ import { fetchUsers } from "./userThunks";
 type UserInterface = {
   id: number;
   email: string;
-  first_name: string;
-  last_name: string;
-  avatar: string;
+  firstName: string;
+  lastName: string;
+  photo: string;
 };
 
 type UsersApiReturn = {
-  users: UserInterface[];
+  billings: UserInterface[];
   totalPages: number;
   totalCount: number;
 };
@@ -43,7 +43,7 @@ export const userSlice = createSlice({
     builder.addCase(
       fetchUsers.fulfilled,
       (state, action: PayloadAction<UsersApiReturn>) => {
-        state.users = action.payload.users;
+        state.users = action.payload.billings;
         state.totalPages = action.payload.totalPages;
         state.totalCount = action.payload.totalCount;
         state.loading = false;

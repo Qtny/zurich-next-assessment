@@ -17,6 +17,3 @@ bun dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-## Disclaimer
-The live version of the application has been hosted on Vercel, and can be accessed via [here](https://zurich-next-assessment.vercel.app/). The Google Authorized Url has been set to this site, therefore the logging in via Google only works here, and would fail to redirect on `localhost`. 
